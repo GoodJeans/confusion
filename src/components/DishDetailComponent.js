@@ -5,7 +5,6 @@ class DishDetail extends React.Component {
         constructor(props) {
           super(props);
           this.state = {
-      
           }
         }
         renderDish(dish){
@@ -35,8 +34,8 @@ class DishDetail extends React.Component {
                const commentsList = dish.map((comment) => {
                    return (
                        <ul>
-                           <li class="no-bullet">{comment.comment}</li>
-                           <li class="no-bullet">--{comment.author}, {new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" }).format(new Date(comment.date))}</li>
+                           <li className="no-bullet">{comment.comment}</li>
+                           <li className="no-bullet">--{comment.author}, {new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" }).format(new Date(comment.date))}</li>
                        </ul>
                    )
                });
@@ -56,10 +55,10 @@ class DishDetail extends React.Component {
           }
 
         render(){
-            const selectedDish= this.props.selectedDish;
+            const selectedDish= this.props.dish;
             let c;
-            if (this.props.selectedDish!=null){
-                c=this.props.selectedDish.comments;
+            if (this.props.dish!=null){
+                c=this.props.dish.comments;
                 console.log("value of c is:"+c)
             }else{
                 c=null;
@@ -67,11 +66,11 @@ class DishDetail extends React.Component {
             return(
                     <div className="row">
                         <div className="col-12 col-md-5 m-1">
-                            {this.renderDish(this.props.selectedDish)}
+                            {this.renderDish(this.props.dish
+                                )}
                         </div>
                         <div className="col-12 col-md-5 m-1">
                             {this.renderComments(c)}
-                            
                         </div>
                     </div>
             )
