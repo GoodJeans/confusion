@@ -1,64 +1,56 @@
 import React, {Component} from 'react';
 import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
-
-class DishDetail extends React.Component {
-        constructor(props) {
-          super(props);
-          this.state = {
-          }
-        }
-        renderDish(dish){
-            if (dish != null){
-                return (
-                    <div>
-                     <Card>
-                         <CardImg  src={dish.image}  alt={dish.name} />
-                         <CardBody>
-                             <CardTitle>{dish.name}</CardTitle>
-                             <CardText>{dish.description}</CardText>
-                         </CardBody>
-                     </Card>
-                    </div>
-                )
-            }
-            else{
-                return(
-                    <div></div>
-                );
-            }
-        }
+ 
+function RenderDish({dish}){
+    if (dish != null){
+        return (
+            <div>
+                <Card>
+                    <CardImg  src={dish.image}  alt={dish.name} />
+                    <CardBody>
+                        <CardTitle>{dish.name}</CardTitle>
+                        <CardText>{dish.description}</CardText>
+                    </CardBody>
+                </Card>
+            </div>
+        )
+    }
+    else{
+        return(
+            <div></div>
+        );
+    }
+}
         
-        renderComments(dish) {
-            if(dish != null) {
-                console.log("dish is "+dish)
-               const commentsList = dish.map((comment) => {
-                   return (
-                       <ul>
-                           <li className="no-bullet">{comment.comment}</li>
-                           <li className="no-bullet">--{comment.author}, {new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" }).format(new Date(comment.date))}</li>
-                       </ul>
-                   )
-               });
-               return(
-                   <div>
-                       {commentsList}
-                   </div>
-               )
-               
-            }
-        
-            else {
-              return (
-                <div></div>
-              );
-            }
-          }
+function RenderComments({comments}) {
+    if(comments != null) {
+        console.log("dish is "+comments)
+        const commentsList = comments.map((comment) => {
+            return (
+                <ul>
+                    <li className="no-bullet">{comment.comment}</li>
+                    <li className="no-bullet">--{comment.author}, {new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" }).format(new Date(comment.date))}</li>
+                </ul>
+            )
+        });
+        return(
+            <div>
+                {commentsList}
+            </div>
+        )   
+    }
+    else {
+        return (
+        <div></div>
+        );
+    }
+    }
 
-        render(){
-            const selectedDish= this.props.dish;
+        const DishDetail = (props) =>{
+            const selectedDish= props.dish;
             let c;
-            if (this.props.dish!=null){
-                c=this.props.dish.comments;
+            if (props.dish!=null){
+                c=props.dish.comments;
                 console.log("value of c is:"+c)
             }else{
                 c=null;
@@ -66,11 +58,11 @@ class DishDetail extends React.Component {
             return(
                     <div className="row">
                         <div className="col-12 col-md-5 m-1">
-                            {this.renderDish(this.props.dish
-                                )}
+                            <RenderDish dish={props.dish}/>
                         </div>
                         <div className="col-12 col-md-5 m-1">
-                            {this.renderComments(c)}
+                            <RenderComments comments={c}/>
+                            {/* {this.renderComments(c)} */}
                         </div>
                     </div>
             )
@@ -79,6 +71,6 @@ class DishDetail extends React.Component {
         }
       
         
-    }
+    
       
 export default DishDetail;
