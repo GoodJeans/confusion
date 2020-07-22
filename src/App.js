@@ -1,10 +1,7 @@
 import React from 'react';
-import { Navbar, NavbarBrand } from 'reactstrap';
-import Menu from './components/MenuComponent';
-// import './App.css';
-import { DISHES } from './shared/dishes';
+import {BrowserRouter} from 'react-router-dom';
 import Main from './components/MainComponent';
-
+import './App.css';
 class App extends React.Component {
 
   // constructor(props) {
@@ -16,16 +13,11 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <BrowserRouter>
+      <div className="App">
         <Main/>
-        {/* <Navbar dark color="primary">
-          <div className="container">
-            <NavbarBrand href="/">Ristorante Con Fusion
-            </NavbarBrand>
-          </div>
-        </Navbar>
-        <Menu dishes={this.state.dishes} /> */}
       </div>
+      </BrowserRouter>
     );
   }
 }
