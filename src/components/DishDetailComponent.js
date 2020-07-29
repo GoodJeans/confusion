@@ -37,15 +37,17 @@ function RenderComments({comments, addComment, dishId}) {
         console.log("dish is "+addComment)
         const commentsList = comments.map((comment) => {
             return (
-                <ul key={comment.id} >
+                <ul key={comment} >
                     <li className="no-bullet">{comment.comment}</li>
                     <li className="no-bullet">--{comment.author}, {new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" }).format(new Date(comment.date))}</li>
                 </ul>
             )
         });
         return(
-            <div>
-                <CommentForm dish={dishId} addComment={addComment}  />
+            <div >
+                {commentsList}
+                <CommentForm dishId={dishId} addComment={addComment}  />
+                
             </div>
         )   
     }
