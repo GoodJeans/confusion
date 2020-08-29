@@ -3,6 +3,7 @@ import {Card, CardImg,CardBody, CardTitle, CardText,Breadcrumb, BreadcrumbItem, 
 import {Link} from 'react-router-dom';
 import {Control, LocalForm, Errors } from 'react-redux-form';
 import {Loading} from './LoadingComponent';
+import {baseUrl} from '../shared/baseUrl';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -11,11 +12,14 @@ const isNumber = (val) => !isNaN(Number(val));
 const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
 function RenderDish({dish}){
+    console.log("inside dish detail component"+JSON.stringify(dish.image))
+    console.log(baseUrl+ JSON.stringify(dish.image))
     if (dish != null){
         return (
+            
             <div>
                 <Card>
-                    <CardImg  src={dish.image}  alt={dish.name} />
+                    <CardImg  src={baseUrl+dish.image}  alt={baseUrl+dish.name} />
                     <CardBody>
                         <CardTitle>{dish.name}</CardTitle>
                         <CardText>{dish.description}</CardText>
@@ -33,6 +37,7 @@ function RenderDish({dish}){
 
 
 function RenderComments({comments, addComment, dishId}) {
+    console.log("comments is:"+JSON.stringify(comments))
     
     if(comments != null) {
         console.log("dish is "+addComment)
@@ -148,6 +153,7 @@ class CommentForm extends Component{
 }
 
 const DishDetail = (props) =>{
+    console.log("props comments is.."+props.comments)
     if(props.isLoading) {
         return (
             <div className="container">
@@ -179,6 +185,7 @@ const DishDetail = (props) =>{
                 </Breadcrumb>
                 <div className="col-12">
                     <h3>{props.dish.name}</h3>
+                    <p>{props.test}</p>
                     <hr/>
                 </div>
                 <div className="col-12 col-md-5 m-1">

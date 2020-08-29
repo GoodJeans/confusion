@@ -19,7 +19,16 @@ function About(props) {
             </div>
         );
     });
-    console.log("leaders is:"+JSON.stringify(props.leaders))
+    console.log("aboutus propsleader"+JSON.stringify(props.leaders))
+    if(props.leaders){
+        const leaders = props.leaders.map((leader) => {
+          return (
+              <div>
+                  123
+              </div>
+          )
+        })
+    }
     return(
         <div className="container">
             <div className="row">
@@ -75,9 +84,9 @@ function About(props) {
                     <h2>Corporate Leadership</h2>
                 </div>
                 <div className="col-12">
-                    <Media list>
+                    {/* <Media list>
                         {leaders}
-                    </Media>
+                    </Media> */}
                 </div>
             </div>
         </div>
