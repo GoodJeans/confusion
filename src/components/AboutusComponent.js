@@ -27,10 +27,14 @@ function RenderLeaders({leaders})
         return (
             <div className="container">
                 <div className="row">
-                    {/* <Loading/> */}
+                    <Loading/>
                 </div>
             </div>
         )
+    }
+    else if(leaders.errMess)
+    {
+
     }
     else{
         return(

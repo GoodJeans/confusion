@@ -5,6 +5,7 @@ import {Control, LocalForm, Errors } from 'react-redux-form';
 import {Loading} from './LoadingComponent';
 import {baseUrl} from '../shared/baseUrl';
 import { postComment } from '../redux/ActionCreators';
+import {FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -17,7 +18,11 @@ function RenderDish({dish}){
     console.log(baseUrl+ JSON.stringify(dish.image))
     if (dish != null){
         return (
-            
+            <FadeTransform
+            in
+            transformProps={{
+                exitTransform: 'scale(0.5) translateY(-50%)'
+            }}>
             <div>
                 <Card>
                     <CardImg  src={baseUrl+dish.image}  alt={baseUrl+dish.name} />
@@ -27,6 +32,7 @@ function RenderDish({dish}){
                     </CardBody>
                 </Card>
             </div>
+            </FadeTransform>
         )
     }
     else{
@@ -39,21 +45,26 @@ function RenderDish({dish}){
 
 function RenderComments({comments, postComment, dishId}) {
     console.log("comments is:"+JSON.stringify(comments))
-    
     if(comments != null) {
         console.log("dish is "+postComment)
         const commentsList = comments.map((comment) => {
             return (
                 <ul key={comment} >
-                    <li className="no-bullet">{comment.comment}</li>
-                    <li className="no-bullet">--{comment.author}, {new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" }).format(new Date(comment.date))}</li>
+                    <Stagger in>
+                        <Fade in>
+                            <li className="no-bullet">{comment.comment}</li>
+                            <li className="no-bullet">--{comment.author}, {new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" }).format(new Date(comment.date))}</li>
+                        </Fade>
+                    </Stagger>                    
                 </ul>
             )
         });
         return(
             <div >
-                {commentsList}
-                <CommentForm dishId={dishId} postComment={postComment}  />
+                <Stagger in>
+                    {commentsList}
+                    <CommentForm dishId={dishId} postComment={postComment}  />
+                </Stagger>
                 
             </div>
         )   
