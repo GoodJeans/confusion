@@ -5,6 +5,7 @@ import {baseUrl} from '../shared/baseUrl';
 import { FadeTransform } from 'react-animation-components';
 
 function RenderCard({item, isLoading, errMess, }){
+  console.log("Error  mess  is:"+errMess)
   console.log("item is: .."+JSON.stringify(item))
   if(isLoading){
     return(
@@ -23,7 +24,6 @@ function RenderCard({item, isLoading, errMess, }){
                 transformProps={{
                     exitTransform: 'scale(0.5) translateY(-50%)'
                 }}>
-      
       <Card>
           <CardBody>
               <CardImg src={baseUrl + item.image} alt={item.name}></CardImg>
@@ -42,19 +42,22 @@ function Home(props) {
       <div className="container">
         <div className="row align-items-start">
           <div className="col-12 col-md m-1">
-            <RenderCard  testing={props.testing} item={props.dish} 
+            <RenderCard 
+            item={props.dish} 
             isLoading={props.dishesLoading} 
-            errMess={props.dishesErrMess}
+            errMess={props.dishErrMess}
             />
           </div>
           <div className="col-12 col-md m-1">
             <RenderCard item={props.promotion}
-            isLoading={props.promosLoading} 
-            errMess={props.promosErrMess}
+            isLoading={props.promoLoading} 
+            errMess={props.promoErrMess}
             />
           </div>
           <div className="col-12 col-md m-1">
             <RenderCard item={props.leader}
+            isLoading={props.leaderLoading}
+            errMess={props.leaderErrMess}
             />
           </div>
         </div>

@@ -4,14 +4,12 @@ import {Link} from 'react-router-dom';
 import {Control, LocalForm, Errors } from 'react-redux-form';
 import {Loading} from './LoadingComponent';
 import {baseUrl} from '../shared/baseUrl';
-import { postComment } from '../redux/ActionCreators';
+
 import {FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
-const isNumber = (val) => !isNaN(Number(val));
-const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
 function RenderDish({dish}){
     console.log("inside dish detail component"+JSON.stringify(dish.image))
@@ -48,15 +46,17 @@ function RenderComments({comments, postComment, dishId}) {
     if(comments != null) {
         console.log("dish is "+postComment)
         const commentsList = comments.map((comment) => {
+            console.log("Menu  page  comments"+JSON.stringify(comment))
             return (
-                <ul key={comment} >
-                    <Stagger in>
-                        <Fade in>
+                     <Stagger in>
+                        <Fade in> 
+                        <ul key={comment} >
                             <li className="no-bullet">{comment.comment}</li>
                             <li className="no-bullet">--{comment.author}, {new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" }).format(new Date(comment.date))}</li>
+                        </ul>
                         </Fade>
-                    </Stagger>                    
-                </ul>
+                    </Stagger>                     
+                
             )
         });
         return(
@@ -192,7 +192,6 @@ const DishDetail = (props) =>{
         <div className="container">
                 <div className="row">
                 <Breadcrumb>
-                    {/* <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem> */}
                     <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
                     <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
                 </Breadcrumb>

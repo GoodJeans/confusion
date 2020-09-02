@@ -3,8 +3,9 @@ import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'r
 import { Link } from 'react-router-dom';
 import {baseUrl} from '../shared/baseUrl';
 import { Loading } from './LoadingComponent';
+import { FadeTransform } from 'react-animation-components';
 
-function RenderLeaders({leaders})
+function RenderLeaders({leaders, leaderLoading, leaderErrMess})
 {   
     console.log("qwe"+JSON.stringify(leaders))
     const displayLeaders = leaders.map((leaders) => {
@@ -23,7 +24,7 @@ function RenderLeaders({leaders})
         </div>
         )
     });
-    if(leaders.isLoading){
+    if(leaderLoading){
         return (
             <div className="container">
                 <div className="row">
@@ -32,9 +33,13 @@ function RenderLeaders({leaders})
             </div>
         )
     }
-    else if(leaders.errMess)
+    else if(leaderErrMess)
     {
-
+    return(
+        <div>
+            {leaderErrMess}
+        </div>
+    )
     }
     else{
         return(
@@ -102,9 +107,14 @@ function About(props) {
                     <h2>Corporate Leadership</h2>
                 </div>
                 <div className="col-12">
-                    <Media list>
-                        <RenderLeaders leaders={props.leaders}/>
-                    </Media>
+                    <FadeTransform  in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
+                        <Media list>
+                            <RenderLeaders leaders={props.leaders}  leaderLoading={props.leaderLoading} leaderErrMess={props.leaderErrMess}  />
+                        </Media>
+                    </FadeTransform>
                 </div>
             </div>
         </div>
